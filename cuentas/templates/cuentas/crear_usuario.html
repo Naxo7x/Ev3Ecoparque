@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} Crear Usuario {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Registrar Nuevo Usuario</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Datos del Usuario</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="font-weight-bold">Nombre de Usuario</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Contraseña</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Rol del Sistema</label>
+                            <select name="rol" class="form-control">
+                                <option value="ADMIN">Administrador</option>
+                                <option value="GUIA">Guía</option>
+                                <option value="Cliente">Cliente</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block font-weight-bold mt-4">Crear Usuario</button>
+                        <a href="{% url 'lista_usuarios' %}" class="btn btn-secondary btn-block mt-2">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

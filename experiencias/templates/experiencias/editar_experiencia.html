@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} Editar Experiencia {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Editar Experiencia: {{ experiencia.titulo }}</h1>
+        <a href="{% url 'guia_dashboard' %}" class="btn btn-secondary btn-sm shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Volver al Panel
+        </a>
+    </div>
+
+    <!-- Tarjeta Formulario -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Modificar Datos</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Título de la Experiencia</label>
+                            {{ form.titulo }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Categoría</label>
+                            {{ form.categoria }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label font-weight-bold">Precio ($)</label>
+                                {{ form.precio }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label font-weight-bold">Cupo Máximo</label>
+                                {{ form.cupo_maximo }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Fecha y Hora de Realización</label>
+                            {{ form.fecha_hora }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label font-weight-bold">Descripción Detallada</label>
+                            {{ form.descripcion }}
+                        </div>
+
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-sync-alt"></i> Actualizar Experiencia
+                        </button>
+                        <a href="{% url 'guia_dashboard' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+Admin
+User: Cristobal
+Password: 1234
+
+
+Guias
+
+User: guia1
+Password: password123
+----------------------
+User: guia2
+Password: password123
+
+
+Turistas
+
+User: turista1
+Password: password123
+---------------------
+User: turista2
+Password: password123

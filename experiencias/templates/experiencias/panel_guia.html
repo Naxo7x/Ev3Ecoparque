@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} Panel Guía {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Panel de Control - Guía / Operador</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Mis Experiencias Asignadas</h6>
+            <a href="{% url 'crear_experiencia' %}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Crear Nueva Experiencia
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="tablaGuia" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Cupos</th>
+                            <th>Fecha/Hora</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for exp in experiencias %}
+                        <tr>
+                            <td>{{ exp.id }}</td>
+                            <td>{{ exp.titulo }}</td>
+                            <td>{{ exp.categoria.nombre }}</td>
+                            <td>${{ exp.precio }}</td>
+                            <td>{{ exp.cupo_maximo }}</td>
+                            <td>{{ exp.fecha_hora|date:"d/m/Y H:i" }}</td>
+                            <td>
+                                <a href="{% url 'editar_experiencia' exp.id %}" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-pen"></i> Editar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
+<script>
+    new DataTable('#tablaGuia', {
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json'
+        }
+    });
+</script>
+{% endblock %}

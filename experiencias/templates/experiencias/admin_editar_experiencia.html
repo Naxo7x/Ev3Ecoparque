@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} Administrador - Editar Experiencia {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Admin: Editar Experiencia ({{ experiencia.titulo }})</h1>
+        <a href="{% url 'admin_gestionar_experiencias' %}" class="btn btn-secondary btn-sm shadow-sm">
+            <i class="fas fa-arrow-left fa-sm text-white-50"></i> Volver al Gestión
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Modificar Experiencia (Vista de Administrador)</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Título</label>
+                            <input type="text" name="titulo" class="form-control" value="{{ experiencia.titulo }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Categoría</label>
+                            <select name="categoria" class="form-control" required>
+                                {% for cat in categorias %}
+                                    <option value="{{ cat.id }}" {% if experiencia.categoria_id == cat.id %}selected{% endif %}>{{ cat.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label font-weight-bold">Precio ($)</label>
+                                <input type="number" step="0.01" name="precio" class="form-control" value="{{ experiencia.precio }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Descripción</label>
+                            <textarea name="descripcion" class="form-control" rows="3" required>{{ experiencia.descripcion }}</textarea>
+                        </div>
+
+                        <div class="form-group form-check mb-4">
+                            <input type="checkbox" name="activo" class="form-check-input" id="activo" {% if experiencia.activo %}checked{% endif %}>
+                            <label class="form-check-label font-weight-bold" for="activo">Experiencia Activa en el Catálogo</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning font-weight-bold">
+                            <i class="fas fa-sync-alt"></i> Guardar Cambios de Admin
+                        </button>
+                        <a href="{% url 'admin_gestionar_experiencias' %}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

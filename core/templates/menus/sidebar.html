@@ -1,0 +1,89 @@
+{% load static %}
+
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-tree"></i>
+        </div>
+        <div class="sidebar-brand-text mx-2">Aventuras del Sur</div>
+    </a>
+    <hr class="sidebar-divider my-0">
+
+    {% if not user.is_authenticated or user.perfil.rol != 'GUIA' %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">
+            <i class="fas fa-fw fa-compass"></i>
+            <span>Catalogo Publico</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider">
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <div class="sidebar-heading">
+            Gestión del Sistema
+        </div>
+        {% if user.perfil.rol == 'ADMIN' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_dashboard' %}">
+                    <i class="fas fa-fw fa-user-shield"></i>
+                    <span>Panel Administrador</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gestionar_categorias' %}">
+                    <i class="fas fa-fw fa-tags"></i>
+                    <span>Categorías</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_gestionar_experiencias' %}">
+                    <i class="fas fa-fw fa-mountain"></i>
+                    <span>Gestionar Experiencias</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'lista_usuarios' %}">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Gestión de Usuarios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_gestionar_reservas' %}">
+                    <i class="fas fa-fw fa-ticket-alt"></i>
+                    <span>Gestión de Reservas</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if user.perfil.rol == 'GUIA' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'guia_dashboard' %}">
+                    <i class="fas fa-fw fa-map-marked-alt"></i>
+                    <span>Mis Experiencias</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'crear_experiencia' %}">
+                    <i class="fas fa-fw fa-plus-circle"></i>
+                    <span>Crear Experiencia</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if user.perfil.rol == 'Cliente' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'mis_reservas' %}">
+                    <i class="fas fa-fw fa-ticket-alt"></i>
+                    <span>Mis Reservas</span>
+                </a>
+            </li>
+        {% endif %}
+
+        <hr class="sidebar-divider d-none d-md-block">
+    {% endif %}
+
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

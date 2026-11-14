@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} Editar Categoría {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Editar Categoría: {{ categoria.nombre }}</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Modificar Datos</h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold small text-gray-900">{{ field.label }}</label>
+                                <div class="d-block">
+                                    {% if field.name == 'activo' %}
+                                        <select name="activo" class="form-control" id="id_activo">
+                                            <option value="True" {% if field.value %}selected{% endif %}>Activo</option>
+                                            <option value="False" {% if not field.value and field.value is not None %}selected{% endif %}>Inactivo</option>
+                                        </select>
+                                    {% else %}
+                                        {{ field }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary font-weight-bold mt-3">Actualizar Cambios</button>
+                        <a href="{% url 'gestionar_categorias' %}" class="btn btn-secondary font-weight-bold mt-3 ml-2">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

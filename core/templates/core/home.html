@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %} Inicio - Ecoparque Aventuras del Sur {% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="jumbotron bg-white shadow-sm">
+        <h1 class="display-4 text-primary font-weight-bold">Ecoparque Aventuras del Sur</h1>
+        <p class="lead">Explora nuestras actividades al aire libre y vive la mejor experiencia de trekking, kayak y senderismo.</p>
+    </div>
+
+    <h3 class="h4 mb-3 text-gray-800">Catálogo de Experiencias Disponibles</h3>
+    <div class="row">
+        {% for exp in experiencias %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 shadow border-left-primary">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold text-primary">{{ exp.titulo }}</h5>
+                    <p class="card-text">{{ exp.descripcion|truncatewords:20 }}</p>
+                    <hr>
+                    <p class="mb-1"><strong>Categoría:</strong> {{ exp.categoria.nombre }}</p>
+                    <p class="mb-1"><strong>Precio:</strong> ${{ exp.precio }}</p>
+                    <p class="mb-3"><strong>Fecha:</strong> {{ exp.fecha_hora|date:"d/m/Y H:i" }}</p>
+                    
+                    {% if user.is_authenticated %}
+                        {% if user.perfil.rol == 'Cliente' %}
+                            <a href="{% url 'inscribir_experiencia' exp.id %}" class="btn btn-success btn-block">Reservar Ticket</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-block">Inicia Sesión para Reservar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">No hay experiencias disponibles en este momento.</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
