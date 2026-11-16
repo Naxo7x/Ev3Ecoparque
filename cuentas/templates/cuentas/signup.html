@@ -1,5 +1,4 @@
 {% extends 'base_login.html' %}
-{% load static %}
 
 {% block titulo %} Registro - Aventuras del Sur {% endblock %}
 
@@ -12,20 +11,12 @@
                 <h1 class="h4 text-gray-900 mb-4 font-weight-bold">Crear una cuenta</h1>
             </div>
 
-            <form class="user" method="POST">
+            <form method="POST">
                 {% csrf_token %}
                 
-                {% for field in form %}
-                    <div class="form-group">
-                        <label class="small font-weight-bold text-gray-700">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {{ form.as_p }}
 
-                <button type="submit" class="btn btn-primary btn-user btn-block font-weight-bold">
+                <button type="submit" class="btn btn-primary btn-user btn-block font-weight-bold mt-3">
                     Registrar Cuenta
                 </button>
             </form>

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block titulo %} Editar Categoría {% endblock %}
 
@@ -17,21 +16,7 @@
                     <form method="POST">
                         {% csrf_token %}
                         
-                        {% for field in form %}
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold small text-gray-900">{{ field.label }}</label>
-                                <div class="d-block">
-                                    {% if field.name == 'activo' %}
-                                        <select name="activo" class="form-control" id="id_activo">
-                                            <option value="True" {% if field.value %}selected{% endif %}>Activo</option>
-                                            <option value="False" {% if not field.value and field.value is not None %}selected{% endif %}>Inactivo</option>
-                                        </select>
-                                    {% else %}
-                                        {{ field }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
+                        {{ form.as_p }}
 
                         <button type="submit" class="btn btn-primary font-weight-bold mt-3">Actualizar Cambios</button>
                         <a href="{% url 'gestionar_categorias' %}" class="btn btn-secondary font-weight-bold mt-3 ml-2">Cancelar</a>

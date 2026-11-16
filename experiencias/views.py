@@ -109,14 +109,10 @@ def inscribir_experiencia(request, experiencia_id):
     experiencia = get_object_or_404(Experiencia, pk=experiencia_id)
     reservas_actuales = Reserva.objects.filter(experiencia=experiencia).count()
     if reservas_actuales < experiencia.cupo_maximo:
-        Reserva.objects.get_or_create(
-            usuario=request.user,
-            experiencia=experiencia
-        )
+        Reserva.objects.get_or_create(usuario=request.user,experiencia=experiencia)
         messages.success(request, f'¡Te has inscrito exitosamente en {experiencia.titulo}!')
     else:
         messages.error(request, 'Lo sentimos, esta experiencia ya ha completado todos sus cupos.')
-        
     return redirect('mis_reservas')
 
 @login_required
@@ -135,10 +131,8 @@ def admin_gestionar_experiencias(request):
 def admin_editar_experiencia(request, pk):
     if not (hasattr(request.user, 'perfil') and request.user.perfil.rol == 'ADMIN'):
         return redirect('home')
-    
     experiencia = get_object_or_404(Experiencia, pk=pk)
     categorias = Categoria.objects.all()
-    
     if request.method == 'POST':
         experiencia.titulo = request.POST.get('titulo')
         experiencia.descripcion = request.POST.get('descripcion')

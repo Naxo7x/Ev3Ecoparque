@@ -5,15 +5,12 @@
 
 {% block contenido %}
 <div class="container-fluid">
-    <!-- Título y Botón de Nuevo Usuario -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Gestión de Usuarios y Roles</h1>
         <a href="{% url 'crear_usuario' %}" class="btn btn-primary btn-sm shadow-sm">
             <i class="fas fa-user-plus fa-sm text-white-50 mr-1"></i> Nuevo Usuario
         </a>
     </div>
-
-    <!-- Mensajes de alerta -->
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -73,7 +70,6 @@
     </div>
 </div>
 
-<!-- DataTables CSS/JS compatibles con Bootstrap 4 (SB Admin 2) -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.min.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>

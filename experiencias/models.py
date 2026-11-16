@@ -14,11 +14,8 @@ class Experiencia(models.Model):
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    
-    # Agregamos estos dos campos que pedía tu formulario:
     fecha_hora = models.DateTimeField(null=True, blank=True)
     cupo_maximo = models.PositiveIntegerField(default=10)
-    
     creador = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     activo = models.BooleanField(default=True)
 

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block titulo %} Gestión Categorías {% endblock %}
 
@@ -8,7 +7,7 @@
     <h1 class="h3 mb-4 text-gray-800">Gestión de Categorías</h1>
 
     <div class="row">
-        <!-- Formulario Crear Categoría -->
+        <!-- Formulario para crear categoría -->
         <div class="col-md-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -18,36 +17,13 @@
                     <form method="POST">
                         {% csrf_token %}
                         
-                        {% for field in form %}
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold small text-gray-900">{{ field.label }}</label>
-                                
-                                <div class="d-block">
-                                    {% if field.name == 'activo' %}
-                                        <select name="activo" class="form-control" id="id_activo">
-                                            <option value="True" {% if field.value %}selected{% endif %}>Activo</option>
-                                            <option value="False" {% if not field.value and field.value is not None %}selected{% endif %}>Inactivo</option>
-                                        </select>
-                                    {% else %}
-                                        {{ field }}
-                                    {% endif %}
-                                </div>
-                                
-                                {% if field.errors %}
-                                    <div class="invalid-feedback d-block">
-                                        {{ field.errors|striptags }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-
+                        {{ form.as_p }}
                         <button type="submit" class="btn btn-success btn-block font-weight-bold mt-4">Guardar</button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Tabla Categorías con Acciones CRUD -->
         <div class="col-md-8">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -95,7 +71,6 @@
     </div>
 </div>
 
-<!-- DataTables CSS/JS compatibles con Bootstrap 4 (SB Admin 2) -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.min.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
